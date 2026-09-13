@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trinity Deck — Build. Scale. Succeed.</title>
+    <link rel="icon" type="image/png" href="LogoHorizontal.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --deep-black: #121416;
@@ -16,9 +18,12 @@
             --growth-blue: #0343D8;
             --royal-blue: #012F96;
             --midnight-blue: #011B52;
-            --silver-gray: #8D929C;
-            --soft-white: #DCDDE1;
+            --silver-gray: #6B7280; /* Darkened for light theme contrast */
+            --soft-white: #F3F4F6;
             --white: #FFFFFF;
+            --light-border: #E5E7EB;
+
+            --whatsapp-green: #25D366;
         }
 
         * {
@@ -29,88 +34,86 @@
         }
 
         body {
-            background-color: var(--deep-black);
-            color: var(--white);
+            background-color: var(--white);
+            color: var(--deep-black);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
             padding: 2rem 1.5rem;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Glowing brand gradient background accents */
         body::before {
             content: '';
             position: absolute;
-            top: -15%;
+            top: -10%;
             left: 50%;
             transform: translateX(-50%);
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(3, 67, 216, 0.22) 0%, rgba(1, 47, 150, 0.12) 45%, rgba(18, 20, 22, 0) 70%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(3, 67, 216, 0.08) 0%, rgba(1, 47, 150, 0.03) 40%, rgba(255, 255, 255, 0) 70%);
             border-radius: 50%;
             z-index: 0;
             pointer-events: none;
         }
 
-        header {
-            z-index: 1;
+        .container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        header {
+            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            margin-bottom: 4rem;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
             text-decoration: none;
         }
 
+        /* Horizontal wordmark (5:1) with transparent background — no shadow needed */
         .brand-logo img {
-            height: 42px;
+            height: 48px;
             width: auto;
+            max-width: 100%;
             object-fit: contain;
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -0.02em;
-            color: var(--white);
-        }
-
-        .logo-text span {
-            color: var(--growth-blue);
+            display: block;
         }
 
         main {
-            z-index: 1;
             text-align: center;
-            max-width: 900px;
             width: 100%;
-            margin: auto 0;
-            padding: 3rem 0;
+            margin-bottom: 4rem;
         }
 
         .badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(141, 146, 156, 0.25);
-            padding: 0.5rem 1rem;
+            background: rgba(3, 67, 216, 0.05);
+            border: 1px solid rgba(3, 67, 216, 0.15);
+            padding: 0.5rem 1.25rem;
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--soft-white);
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
+            color: var(--growth-blue);
+            margin-bottom: 1.75rem;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         .dot {
@@ -118,265 +121,281 @@
             height: 8px;
             background-color: var(--growth-blue);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--growth-blue);
+            box-shadow: 0 0 12px rgba(3, 67, 216, 0.4);
+            animation: blink 2s infinite ease-in-out;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.25rem);
+            font-size: clamp(3rem, 7vw, 5rem);
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -0.03em;
             margin-bottom: 1rem;
-            background: linear-gradient(180deg, var(--white) 0%, var(--soft-white) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--deep-black);
         }
 
         p.tagline {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
             color: var(--silver-gray);
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: -0.01em;
-            line-height: 1.6;
-            margin-bottom: 3.5rem;
+            line-height: 1.5;
+            margin-bottom: 4rem;
         }
 
-        /* Cal Embed Section Container */
         .calendar-section {
-            background: rgba(48, 50, 53, 0.4);
-            border: 1px solid rgba(141, 146, 156, 0.2);
-            border-radius: 20px;
-            padding: 1.5rem 1rem;
-            margin-bottom: 3.5rem;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: var(--white);
+            border: 1px solid var(--light-border);
+            border-radius: 24px;
+            padding: 2rem 1rem;
+            margin-bottom: 5rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
         }
 
         .calendar-title {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
+            color: var(--deep-black);
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         .cal-wrapper {
             width: 100%;
-            min-height: 650px;
+            height: 650px;
             border-radius: 12px;
             overflow: hidden;
+            background: transparent;
         }
 
         .contact-section-title {
             font-size: 0.875rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             color: var(--silver-gray);
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
-        /* Side-by-Side Cards Layout */
         .contacts-container {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            max-width: 760px;
+            gap: 2rem;
+            max-width: 800px;
             margin: 0 auto;
             width: 100%;
         }
 
+        /* Light mode contact cards */
         .contact-card {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.45rem;
-            padding: 1.75rem 1.5rem;
-            background: var(--graphite);
-            border: 1px solid rgba(141, 146, 156, 0.2);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.25s ease;
+            gap: 0.5rem;
+            padding: 2.5rem 2rem;
+            background: var(--white);
+            border: 1px solid var(--light-border);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
         .contact-card:hover {
-            border-color: var(--growth-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px -10px rgba(3, 67, 216, 0.3);
+            border-color: rgba(3, 67, 216, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(3, 67, 216, 0.15);
         }
 
         .contact-name {
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--white);
-            margin-bottom: 0.25rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--deep-black);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
         }
 
         .contact-link {
-            font-size: 0.9rem;
-            color: var(--soft-white);
+            font-size: 1rem;
+            color: var(--silver-gray);
             font-weight: 500;
             text-decoration: none;
             transition: color 0.2s ease;
         }
 
         .contact-link:hover {
-            color: var(--white);
-            text-decoration: underline;
+            color: var(--growth-blue);
         }
 
         .contact-actions {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
         }
 
-        .action-btn {
+        .btn-outline {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
-            font-size: 0.825rem;
+            justify-content: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--white);
-            background: rgba(3, 67, 216, 0.2);
-            border: 1px solid var(--growth-blue);
-            padding: 0.5rem 0.875rem;
+            padding: 0.6rem 1.25rem;
             border-radius: 8px;
             text-decoration: none;
+            background: transparent;
             transition: all 0.2s ease;
+            flex: 1;
+            min-width: 120px;
         }
 
-        .action-btn:hover {
-            background: var(--growth-blue);
-            color: var(--white);
+        .btn-whatsapp {
+            color: var(--whatsapp-green);
+            border: 1px solid rgba(37, 211, 102, 0.4);
         }
 
-        .whatsapp-btn {
-            background: rgba(37, 211, 102, 0.15);
-            border: 1px solid #25D366;
-            color: #25D366;
+        .btn-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.1);
+            border-color: var(--whatsapp-green);
         }
 
-        .whatsapp-btn:hover {
-            background: #25D366;
-            color: var(--deep-black);
+        .btn-portfolio {
+            color: var(--growth-blue);
+            border: 1px solid rgba(3, 67, 216, 0.3);
+        }
+
+        .btn-portfolio:hover {
+            background: rgba(3, 67, 216, 0.05);
+            border-color: var(--growth-blue);
         }
 
         footer {
-            z-index: 1;
+            margin-top: auto;
+            padding-top: 4rem;
             color: var(--silver-gray);
             font-size: 0.875rem;
             text-align: center;
+            width: 100%;
         }
 
-        @media (max-width: 680px) {
-            body {
-                padding: 1.5rem 1rem;
+        @media (max-width: 768px) {
+            header {
+                justify-content: center;
+            }
+            .brand-logo img {
+                height: 40px;
             }
             .contacts-container {
                 flex-direction: column;
-            }
-            .contact-card {
-                width: 100%;
+                gap: 1.5rem;
             }
             .cal-wrapper {
-                min-height: 500px;
+                height: 550px;
+            }
+            .contact-card {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <a href="#" class="brand-logo">
-            <!-- Place your Logo image file in the same directory as index.html -->
-            <img src="Logo.png" alt="Trinity Deck Logo" onerror="this.style.display='none'">
-            <div class="logo-text">TRINITY <span>DECK</span></div>
-        </a>
-    </header>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <a href="#" class="brand-logo">
+                <!-- Local logo first; falls back to the ImgBB-hosted copy if the file is missing -->
+                <img src="LogoHorizontal.png"
+                     onerror="this.onerror=null;this.src='https://i.ibb.co/0R382ByM/Logo-Horizontal.png';"
+                     alt="Trinity Deck">
+            </a>
+        </header>
 
-    <!-- Main Content -->
-    <main>
-        <div class="badge">
-            <span class="dot"></span>
-            Launching Soon
-        </div>
-
-        <h1>Trinity Deck</h1>
-
-        <p class="tagline">
-            Build. Scale. Succeed.
-        </p>
-
-        <!-- Cal Embed Calendar Container -->
-        <div class="calendar-section">
-            <div class="calendar-title">Schedule a Consultation Call</div>
-            <div class="cal-wrapper">
-                <!-- Cal inline embed code begins -->
-                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
-                <script type="text/javascript">
-                  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-                  Cal("init", "30min", {origin:"https://app.cal.com"});
-                  Cal.config = Cal.config || {};
-                  Cal.config.forwardQueryParams = true;
-
-                  Cal.ns["30min"]("inline", {
-                    elementOrSelector:"#my-cal-inline-30min",
-                    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-                    calLink: "trinitydeckoffical/30min",
-                  });
-
-                  Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-                </script>
-                <!-- Cal inline embed code ends -->
+        <!-- Main Content -->
+        <main>
+            <div class="badge">
+                <span class="dot"></span>
+                Launching Soon
             </div>
-        </div>
 
-        <div class="contact-section-title">Direct Contacts</div>
+            <h1>Trinity Deck</h1>
 
-        <!-- Side-by-Side Cards -->
-        <div class="contacts-container">
-            <!-- Left Card: Hari -->
-            <div class="contact-card">
-                <span class="contact-name">Hari</span>
-                <a href="mailto:hari@trinitydeck.com" class="contact-link">hari@trinitydeck.com</a>
-                <a href="tel:+918341886288" class="contact-link">+91 83418 86288</a>
-                
-                <div class="contact-actions">
-                    <a href="https://wa.me/918341886288" target="_blank" rel="noopener noreferrer" class="action-btn whatsapp-btn">
-                        WhatsApp ↗
-                    </a>
-                    <a href="https://www.hariprasadyarragolla.com/" target="_blank" rel="noopener noreferrer" class="action-btn">
-                        Portfolio ↗
-                    </a>
+            <p class="tagline">
+                Build. Scale. Succeed.
+            </p>
+
+            <!-- Calendar Section -->
+            <div class="calendar-section">
+                <div class="calendar-title">Schedule a Consultation Call</div>
+                <div class="cal-wrapper">
+                    <!-- Cal inline embed code begins -->
+                    <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+                    <script type="text/javascript">
+                      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+                      Cal("init", "30min", {origin:"https://app.cal.com"});
+                      Cal.config = Cal.config || {};
+                      Cal.config.forwardQueryParams = true;
+
+                      Cal.ns["30min"]("inline", {
+                        elementOrSelector:"#my-cal-inline-30min",
+                        config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+                        calLink: "trinitydeckoffical/30min",
+                      });
+
+                      Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view","theme":"light"});
+                    </script>
+                    <!-- Cal inline embed code ends -->
                 </div>
             </div>
 
-            <!-- Right Card: Sandeep -->
-            <div class="contact-card">
-                <span class="contact-name">Sandeep</span>
-                <a href="mailto:sandeep@trinitydeck.com" class="contact-link">sandeep@trinitydeck.com</a>
-                <a href="tel:+919743191276" class="contact-link">+91 97431 91276</a>
-                
-                <div class="contact-actions">
-                    <a href="https://wa.me/919743191276" target="_blank" rel="noopener noreferrer" class="action-btn whatsapp-btn">
-                        WhatsApp ↗
-                    </a>
-                    <a href="https://www.sandeephalemani.com/" target="_blank" rel="noopener noreferrer" class="action-btn">
-                        Portfolio ↗
-                    </a>
+            <!-- Contacts Section -->
+            <div class="contact-section-title">Direct Contacts</div>
+
+            <div class="contacts-container">
+                <!-- Card 1: Hari -->
+                <div class="contact-card">
+                    <span class="contact-name">Hari</span>
+                    <a href="mailto:hari@trinitydeck.com" class="contact-link">hari@trinitydeck.com</a>
+                    <a href="tel:+918341886288" class="contact-link">+91 83418 86288</a>
+
+                    <div class="contact-actions">
+                        <a href="https://wa.me/918341886288" target="_blank" rel="noopener noreferrer" class="btn-outline btn-whatsapp">
+                            WhatsApp ↗
+                        </a>
+                        <a href="https://www.hariprasadyarragolla.com/" target="_blank" rel="noopener noreferrer" class="btn-outline btn-portfolio">
+                            Portfolio ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Sandeep -->
+                <div class="contact-card">
+                    <span class="contact-name">Sandeep</span>
+                    <a href="mailto:sandeep@trinitydeck.com" class="contact-link">sandeep@trinitydeck.com</a>
+                    <a href="tel:+919113052543" class="contact-link">+91 91130 52543</a>
+
+                    <div class="contact-actions">
+                        <a href="https://wa.me/919113052543" target="_blank" rel="noopener noreferrer" class="btn-outline btn-whatsapp">
+                            WhatsApp ↗
+                        </a>
+                        <a href="https://www.sandeephalemani.com/" target="_blank" rel="noopener noreferrer" class="btn-outline btn-portfolio">
+                            Portfolio ↗
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; <script>document.write(new Date().getFullYear())</script> Trinity Deck. All rights reserved. | <a href="mailto:contact@trinitydeck.com" style="color: var(--silver-gray); text-decoration: none;">contact@trinitydeck.com</a></p>
-    </footer>
+        <!-- Footer -->
+        <footer>
+            <p>&copy; <span id="year"></span> Trinity Deck. All rights reserved. | <a href="mailto:contact@trinitydeck.com" style="color: var(--silver-gray); text-decoration: none;">contact@trinitydeck.com</a></p>
+        </footer>
+    </div>
 
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
